@@ -39,6 +39,7 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <algorithm>
 
 #include <rapidjson/document.h>
 #include <stlplus3/file_system.hpp>

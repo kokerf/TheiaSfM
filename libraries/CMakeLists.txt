@@ -1,12 +1,16 @@
 if (${BUILD_TESTING})
+  set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
   add_subdirectory(gtest)
 endif (${BUILD_TESTING})
 
+# Cereal for portable IO.
+set(cereal_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/cereal" CACHE PATH "" FORCE)
+
+# Add RapidJson
+set(RapidJSON_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/rapidjson" CACHE PATH "" FORCE)
+
 # AKAZE feature extractor.
 add_subdirectory(akaze)
-
-# Cereal for portable IO.
-add_subdirectory(cereal)
 
 # Flann for fast approximate nearest neighbor searches.
 add_subdirectory(flann)
@@ -25,3 +29,6 @@ add_subdirectory(vlfeat)
 
 # Add VisualSfM files.
 add_subdirectory(visual_sfm)
+
+# Add Rocksdb
+add_subdirectory(rocksdb)

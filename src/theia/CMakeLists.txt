@@ -218,14 +218,14 @@ set(THEIA_LIBRARY_DEPENDENCIES
   ${GFLAGS_LIBRARIES}
   ${GLOG_LIBRARIES}
   ${OPENIMAGEIO_LIBRARIES}
-  ${ROCKSDB_LIBRARIES}
   ${SUITESPARSE_LIBRARIES}
   akaze
-  flann_cpp
+  flann_cpp_s
   statx
   stlplus3
   vlfeat
   visual_sfm
+  rocksdb
 )
 
 set(THEIA_LIBRARY_SOURCE
@@ -251,6 +251,7 @@ if (BUILD_TESTING)
     list(REVERSE TEST_NAME_LIST)
     list(GET TEST_NAME_LIST 0 TEST_NAME)
     add_executable(${TEST_NAME}_test test/test_main.cc ${FILENAME}_test.cc)
+    set_target_properties (${TEST_NAME}_test PROPERTIES FOLDER UnitTest)
     target_link_libraries(${TEST_NAME}_test
       gtest
       theia
