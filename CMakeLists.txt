@@ -80,6 +80,7 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 option(BUILD_TESTING "Enable testing" ON)
 option(BUILD_DOCUMENTATION "Build html User's Guide" OFF)
 
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 enable_testing()
 if (NOT MSVC)
   add_definitions(-DGTEST_USE_OWN_TR1_TUPLE=1)
@@ -231,15 +232,21 @@ include_directories(
   ${flann_SOURCE_DIR}/src/cpp
   ${gtest_SOURCE_DIR}/include
   ${gtest_SOURCE_DIR}
+  ${rocksdb_SOURCE_DIR}/include
+  ${RapidJSON_SOURCE_DIR}/include
   ${optimo_SOURCE_DIR}
   ${statx_SOURCE_DIR}
   ${stlplus3_SOURCE_DIR}
   ${vlfeat_SOURCE_DIR}
-  ${visual_sfm_SOURCE_DIR})
+  ${visual_sfm_SOURCE_DIR}
+)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 include(OptimizeTheiaCompilerFlags)
 optimizetheiacompilerflags()
+
+# Enable thread safe for cereal
+add_definitions(-DCEREAL_THREAD_SAFE=1)
 
 add_subdirectory(src/theia)
 add_subdirectory(applications)
@@ -322,6 +329,7 @@ install(FILES "${CMAKE_CURRENT_BINARY_DIR}/TheiaConfig.cmake"
               "${CMAKE_SOURCE_DIR}/cmake/FindEigen.cmake"
               "${CMAKE_SOURCE_DIR}/cmake/FindGlog.cmake"
               "${CMAKE_SOURCE_DIR}/cmake/FindGflags.cmake"
-	      "${CMAKE_SOURCE_DIR}/cmake/FindOpenImageIO.cmake"
+              "${CMAKE_SOURCE_DIR}/cmake/FindOpenImageIO.cmake"
+              "${CMAKE_SOURCE_DIR}/cmake/FindRocksDB.cmake"
               "${CMAKE_SOURCE_DIR}/cmake/FindSuiteSparse.cmake"
               DESTINATION ${CMAKECONFIG_INSTALL_DIR})
