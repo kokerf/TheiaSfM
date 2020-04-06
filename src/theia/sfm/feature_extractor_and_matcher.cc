@@ -316,6 +316,7 @@ void FeatureExtractorAndMatcher::ProcessImage(const int i) {
   // Add the descriptors to the global image descriptor extractor for training
   // if using a global image descriptor extractor.
   if (options_.select_image_pairs_with_global_image_descriptor_matching) {
+    std::lock_guard<std::mutex> lock(global_descriptor_mutex_);
     const KeypointsAndDescriptors& features =
         features_and_matches_database_->GetFeatures(image_filename);
     CHECK_GT(features.descriptors.size(), 0);

@@ -159,6 +159,7 @@ class FeatureExtractorAndMatcher {
 
   // Feature matcher and mutex for thread-safe access.
   std::unique_ptr<FeatureMatcher> matcher_;
+  std::mutex global_descriptor_mutex_;
   std::mutex matcher_mutex_;
 };
 
